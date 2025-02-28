@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free Online Image Compression Tool - Optimize your images for better performance and faster loading speeds.">
+    <meta name="keywords" content="image compression, online tool, optimize images, reduce image size">
+    <title>Image Compression Tool</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.1.1/compressor.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .container { max-width: 600px; margin: auto; }
+        img { max-width: 100%; height: auto; margin-top: 20px; }
+        .ad-space { width: 100%; height: 100px; background-color: #f0f0f0; margin-top: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Image Compression Tool</h1>
+        <input type="file" id="upload" accept="image/*">
+        <label for="compression">Compression Level:</label>
+        <input type="range" id="compression" min="10" max="90" value="50">
+        <button onclick="compressImage()">Compress</button>
+        <div class="ad-space">
+            <!-- Google AdSense Ad Slot -->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXXXXXXXX" data-ad-slot="YYYYYYYYYY" data-ad-format="auto"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+        </div>
+        <h3>Optimized Image:</h3>
+        <img id="output" src="" alt="">
+        <a id="download" download="compressed.jpg" style="display:none;">Download Image</a>
+    </div>
+    <script>
+        function compressImage() {
+            const fileInput = document.getElementById('upload');
+            const compressionLevel = document.getElementById('compression').value / 100;
+            if (fileInput.files.length === 0) {
+                alert("Please upload an image first.");
+                return;
+            }
+            const file = fileInput.files[0];
+            new Compressor(file, {
+                quality: compressionLevel,
+                success(result) {
+                    const url = URL.createObjectURL(result);
+                    document.getElementById('output').src = url;
+                    const downloadLink = document.getElementById('download');
+                    downloadLink.href = url;
+                    downloadLink.style.display = 'block';
+                },
+                error(err) { console.error(err.message); }
+            });
+        }
+    </script>
+</body>
+</html>
